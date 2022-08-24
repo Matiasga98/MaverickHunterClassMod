@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "gyXaPXs3U6F52aehEzjAT2GUedUHgvOeWZ/J0y8HCh2W5ReUj54fPJQJje+FnHQHJkenRFgxjDVmcmhX+HIZWg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\matias\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MaverickHunterClass\\MaverickHunterClass.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\matias\\.nuget\\packages\\tmodloader.codeassist\\0.1.5\\tmodloader.codeassist.0.1.5.nupkg.sha512"
+  ],
+  "logs": []
+}

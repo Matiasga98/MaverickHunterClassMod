@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\tModLoader.targets" />
+  <PropertyGroup>
+    <AssemblyName>MaverickHunterClass</AssemblyName>
+    <TargetFramework>net6.0</TargetFramework>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="tModLoader.CodeAssist" Version="0.1.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\Dusts\" />
+    <Folder Include="Content\Items\Armours\" />
+    <Folder Include="Content\Items\Placeables\" />
+    <Folder Include="Content\Items\Tools\" />
+    <Folder Include="Content\Tiles\" />
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+</Project>

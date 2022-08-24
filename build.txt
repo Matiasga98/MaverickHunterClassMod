@@ -1,0 +1,3 @@
+displayName = Maverick Hunter Class
+author = Matiasga
+version = 0.1
