@@ -6,50 +6,50 @@ using Microsoft.Xna.Framework;
 using MaverickHunterClass.Content.Projectiles.Weapons;
 using MaverickHunterClass.Common.Players;
 
-
 namespace MaverickHunterClass.Content.Items.Weapons
 {
-    internal class TutorialWand : ModItem
+    internal class SecondBuster : ModItem
     {
+        
+
         public override void SetDefaults()
         {
             Item.width = 28;
             Item.height = 28;
             Item.useStyle = ItemUseStyleID.Shoot;
-
+            Item.autoReuse = true;
+           
             Item.DamageType = ModContent.GetInstance<MHunterDamage>();
             Item.noMelee = true;
-            
-            Item.damage = 24;
+
+            Item.damage = 0;
             Item.knockBack = 3.2f;
 
-            Item.useTime = 6;
-            Item.useAnimation = 6;
+            Item.useTime = 15;
+            Item.useAnimation = 10;
 
             Item.channel = true;
 
-            Item.UseSound = SoundID.Item71;
+            //Item.UseSound = SoundID.Item71;
 
-            Item.shoot = ModContent.ProjectileType<ThirdCharge>();
-            Item.shootSpeed = 5f;
+            Item.shoot = ModContent.ProjectileType<SecondCharge>();
+            Item.shootSpeed = 1f;
+            
+
             
         }
 
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             BusterPlayer busterPlayer = player.GetModPlayer<BusterPlayer>();
-            switch (busterPlayer.stockChargeThird)
+            if (busterPlayer.stockChargeSecond)
             {
-                case 1:
-                    Projectile.NewProjectile(source, player.Center, velocity, ModContent.ProjectileType<FirstBuster2>(), damage, knockback, player.whoAmI, 0f, 2f);
-                    busterPlayer.stockChargeThird = 0;
-                    return false;
-                    break;
-                case 2:
-                    Projectile.NewProjectile(source, player.Center, velocity, ModContent.ProjectileType<ThirdBuster1>(), damage, knockback, player.whoAmI, 0f, 2f);
-                    busterPlayer.stockChargeThird = 0;
-                    return false;
-                    break;
+                Vector2 unitVectorTowardsMouse = player.MountedCenter.DirectionTo(Main.MouseWorld).SafeNormalize(Vector2.UnitX * player.direction);
+                velocity = unitVectorTowardsMouse * 5f;
+                Projectile.NewProjectile(source, player.Center, velocity, ModContent.ProjectileType<SecondBuster2>(), 50, knockback, player.whoAmI);
+                busterPlayer.stockChargeSecond = false;
+                busterPlayer.activeBusterShots++;
+                return false;
             }
             if (!busterPlayer.isCharging && busterPlayer.activeBusterShots < busterPlayer.maxBusterShots)
             {
@@ -58,8 +58,7 @@ namespace MaverickHunterClass.Content.Items.Weapons
                 return true;
             }
             return false;
-            
         }
-    
+
     }
 }

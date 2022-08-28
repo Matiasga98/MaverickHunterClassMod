@@ -31,6 +31,7 @@ namespace MaverickHunterClass.Content.Items.Accesories
             // Set the HasExampleImmunityAcc bool to true to ensure we have this accessory
             // And apply the changes in ModPlayer.PostHurt correctly
             player.GetModPlayer<BusterPlayer>().ultimateBuster = true;
+            player.GetModPlayer<BusterPlayer>().initialCharge = 500;
         }
     }
 }

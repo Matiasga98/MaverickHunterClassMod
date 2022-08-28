@@ -19,7 +19,7 @@ using Terraria.DataStructures;
 
 namespace MaverickHunterClass.Content.Projectiles.Weapons
 {
-    internal class BusterCharge : ModProjectile
+    internal class FirstCharge : ModProjectile
     {
 
         private enum AIState
@@ -29,7 +29,7 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
         }
 
         private int charge = 0;
-        private int chargeLimit = 100;
+        private int chargeLimit = 160;
         private bool fullCharge = false;
       
         private AIState CurrentAIState
@@ -87,8 +87,6 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
             Vector2 mountedCenter = player.MountedCenter;
             float launchSpeed = 5f;
 
-            
-           
             switch (CurrentAIState)
             {
                 case AIState.Charging:
@@ -133,29 +131,39 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
                             if (Main.myPlayer == Projectile.owner)
                             {
                                 Vector2 newCenter = new Vector2(Projectile.Center.X + 15, Projectile.Center.Y);
-                                Projectile.NewProjectile(Projectile.InheritSource(Projectile), newCenter, Projectile.velocity, ModContent.ProjectileType<BusterShot>(), Projectile.damage + 5, Projectile.knockBack, Main.myPlayer);
+                                Projectile.NewProjectile(Projectile.InheritSource(Projectile), newCenter, Projectile.velocity, ModContent.ProjectileType<FirstBuster1>(), Projectile.damage + 5, Projectile.knockBack, Main.myPlayer);
                                 busterPlayer.isCharging = false;
                                 Projectile.Kill();
                             }
                         }
-                        else if (charge < chargeLimit)
+                        else if (charge < 100)
                         {
 
                             if (Main.myPlayer == Projectile.owner)
                             {
                                 Vector2 newCenter = new Vector2(Projectile.Center.X + 27, Projectile.Center.Y);
-                                Projectile.NewProjectile(Projectile.InheritSource(Projectile), newCenter, Projectile.velocity, ModContent.ProjectileType<BusterShot2>(), Projectile.damage + 10, Projectile.knockBack, Main.myPlayer);
+                                Projectile.NewProjectile(Projectile.InheritSource(Projectile), newCenter, Projectile.velocity, ModContent.ProjectileType<FirstBuster2>(), Projectile.damage + 10, Projectile.knockBack, Main.myPlayer);
                                 busterPlayer.isCharging = false;
                                 Projectile.Kill();
                             }
 
                         }
-                        else
+                        else if (charge < chargeLimit)
                         {
                             if (Main.myPlayer == Projectile.owner)
                             {
                                 Vector2 newCenter = new Vector2(Projectile.Center.X + 61, Projectile.Center.Y);
-                                Projectile.NewProjectile(Projectile.InheritSource(Projectile), newCenter, Projectile.velocity * 1.1f, ModContent.ProjectileType<BusterShot3>(), Projectile.damage + 30, Projectile.knockBack, Main.myPlayer);
+                                Projectile.NewProjectile(Projectile.InheritSource(Projectile), newCenter, Projectile.velocity * 1.1f, ModContent.ProjectileType<FirstBuster3>(), Projectile.damage + 30, Projectile.knockBack, Main.myPlayer);
+                                busterPlayer.isCharging = false;
+                                Projectile.Kill();
+                            }
+                        }
+                        else
+                        {
+                            if (Main.myPlayer == Projectile.owner)
+                            {
+                                //Vector2 newCenter = new Vector2(Projectile.Center.X + 61, Projectile.Center.Y);
+                                Projectile.NewProjectile(Projectile.InheritSource(Projectile), player.Center, Projectile.velocity * 1.1f, ModContent.ProjectileType<SpiralShot>(), Projectile.damage + 30, Projectile.knockBack, Main.myPlayer);
                                 busterPlayer.isCharging = false;
                                 Projectile.Kill();
                             }
@@ -163,12 +171,13 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
                         break;
                     }
             }
+            
         }
             
         public override bool PreDraw(ref Color lightColor)
         {
             if(charge < 20)
-                        {
+            {
                 return false;
             }
             else { 
@@ -177,16 +186,16 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
                     spriteEffects = SpriteEffects.FlipHorizontally;
                 Texture2D texture = (Texture2D)ModContent.Request<Texture2D>(Texture);
                 int frameHeight = texture.Height / Main.projFrames[Projectile.type];
-                int frameWidth = texture.Width / 2;
+                int frameWidth = texture.Width / 3;
                 int startY = frameHeight * Projectile.frame;
-                int startX = fullCharge ? frameWidth * 1 : 0;
-                Rectangle sourceRectangle = new Rectangle(startX, startY, texture.Width/2, frameHeight);
+                int startX = fullCharge ? frameWidth * 2 : charge > 100? frameWidth * 1 :0;
+                Rectangle sourceRectangle = new Rectangle(startX, startY, texture.Width/3, frameHeight);
                 Vector2 origin = sourceRectangle.Size() / 2f;
                 float offsetX = 1f;
                 origin.X =  (float)(Projectile.spriteDirection == 1 ? sourceRectangle.Width - offsetX : offsetX);
                 Color drawColor = Projectile.GetAlpha(lightColor);
                 Main.EntitySpriteDraw(texture,
-                    Projectile.Center - Main.screenPosition + new Vector2(texture.Width/4, Projectile.gfxOffY),
+                    Projectile.Center - Main.screenPosition + new Vector2(texture.Width/6, Projectile.gfxOffY),
                     sourceRectangle, drawColor, Projectile.rotation, origin, Projectile.scale, spriteEffects, 0);
                 return false;
             }
