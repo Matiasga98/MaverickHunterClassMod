@@ -40,7 +40,6 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
         }
         public override void AI()
         {
-            
             Player player = Main.player[Projectile.owner];
             base.AI();
             Projectile.rotation = Projectile.velocity.ToRotation();

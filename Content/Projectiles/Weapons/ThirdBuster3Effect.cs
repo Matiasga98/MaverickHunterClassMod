@@ -6,24 +6,27 @@ using MaverickHunterClass;
 using System;
 using Microsoft.Xna.Framework.Graphics;
 using MaverickHunterClass.Common.Players;
-using Terraria.DataStructures;
 
 namespace MaverickHunterClass.Content.Projectiles.Weapons
 {
-    internal class ThirdBuster3 : ModProjectile
+    internal class ThirdBuster3Effect : ModProjectile
     {
 
-
+        private int framesPassed = 0;
         public override void SetStaticDefaults()
         {
             // Total count animation frames
-            Main.projFrames[Projectile.type] = 4;
+            Main.projFrames[Projectile.type] = 5;
+        }
+        public override bool? CanDamage()
+        {
+            return false;
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = 74;
-            Projectile.height = 64;
+            Projectile.width = 92;
+            Projectile.height = 92;
 
             Projectile.friendly = true;
             Projectile.penetrate = 1;
@@ -41,46 +44,30 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
         }
         public override void AI()
         {
-            Player player = Main.player[Projectile.owner];
-            base.AI();
-            Projectile.rotation = Projectile.velocity.ToRotation();
-            Projectile.velocity *= 1.05f;
-
-            if (++Projectile.frameCounter >= 8)
+           
+            if (++Projectile.frameCounter >= 8 && framesPassed <2)
             {
                 Projectile.frameCounter = 0;
-                if (++Projectile.frame >= Main.projFrames[Projectile.type])
-                    Projectile.frame = 0;
+                ++Projectile.frame;
+                ++framesPassed;
             }
 
+            else if (Projectile.frameCounter >= 24)
+            {
+                Projectile.frameCounter = 0;
+                ++Projectile.frame;
+                ++framesPassed;
+            }
+
+            if(framesPassed >= 5)
+            {
+                Projectile.Kill();
+            }
+
+
+
         }
 
-        public override void OnSpawn(IEntitySource source)
-        {
-            double distance = Projectile.velocity.Length();
-            double angle = Math.Atan2(Projectile.velocity.Y, Projectile.velocity.X) * 180 / Math.PI;
-            double angleInRadians = angle * Math.PI / 180;
-
-
-            Vector2 newVelocity = new Vector2((float)(distance * Math.Cos(angleInRadians + 0.26)), (float)(distance * Math.Sin(angleInRadians + 0.26)));
-            Vector2 newVelocity2 = new Vector2((float)(distance * Math.Cos(angleInRadians - 0.26)), (float)(distance * Math.Sin(angleInRadians - 0.26)));
-            Vector2 newVelocity3 = new Vector2((float)(distance * Math.Cos(angleInRadians + 0.16)), (float)(distance * Math.Sin(angleInRadians + 0.16)));
-            Vector2 newVelocity4 = new Vector2((float)(distance * Math.Cos(angleInRadians - 0.16)), (float)(distance * Math.Sin(angleInRadians - 0.16)));
-
-
-            Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, newVelocity * 0.5f, ModContent.ProjectileType<ThirdBuster4B>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, newVelocity2 * 0.5f, ModContent.ProjectileType<ThirdBuster4B>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, newVelocity3 * 0.5f, ModContent.ProjectileType<ThirdBuster4A>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, newVelocity4 * 0.5f, ModContent.ProjectileType<ThirdBuster4A>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ThirdBuster3Effect>(), 0, 0, Projectile.owner);
-        }
-
-        public override void Kill(int timeLeft)
-        {
-            Player player = Main.player[Projectile.owner];
-            BusterPlayer busterPlayer = player.GetModPlayer<BusterPlayer>();
-            busterPlayer.thirdShotCollide = false;
-        }
         public override bool PreDraw(ref Color lightColor)
         {
             // SpriteEffects helps to flip texture horizontally and vertically

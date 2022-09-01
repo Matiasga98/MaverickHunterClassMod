@@ -45,9 +45,9 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
             Projectile.rotation = Projectile.velocity.ToRotation();
 
             Projectile.ai[0]++;
-            if (Projectile.ai[0] < 120f)
+            if (Projectile.ai[0] < 60f)
             {
-                Projectile.velocity *= 1.05f;
+                Projectile.velocity *= 1.025f;
             }
 
             if (++Projectile.frameCounter >= 8)
@@ -64,7 +64,7 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
 
             if (busterPlayer.thirdShotIntersectLogic())
             {
-                Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Projectile.velocity, ModContent.ProjectileType<ThirdBuster3>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Projectile.velocity*0.03f, ModContent.ProjectileType<ThirdBuster3>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
                 Projectile.Kill();
             }
 

@@ -65,7 +65,8 @@ namespace MaverickHunterClass.Common.Players
 					return true;
                 }
             }
-			return false;
+			thirdShotCollide = false;
+            return false;
 		}
      }
 }
