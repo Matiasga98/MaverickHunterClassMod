@@ -85,8 +85,7 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
 
             // If image isn't centered or symmetrical you can specify origin of the sprite
             // (0,0) for the upper-left corner
-            float offsetX = 20f;
-            origin.X = (float)(Projectile.spriteDirection == 1 ? sourceRectangle.Width - offsetX : offsetX);
+
 
             // If sprite is vertical
             // float offsetY = 20f;

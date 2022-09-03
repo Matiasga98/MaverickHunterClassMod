@@ -26,6 +26,8 @@ namespace MaverickHunterClass.Common.Players
 		public bool thirdShot2Collide = false;
 		public Rectangle? thirdShot1Rectangle = null;
         public Rectangle? thirdShot2Rectangle = null;
+		public int fourthShotStock = 0;
+		public int plasmaFieldsAllowed = 1;
 
         public override void ResetEffects()
         {

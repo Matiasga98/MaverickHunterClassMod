@@ -94,8 +94,6 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
             }
             Rectangle sourceRectangle = new Rectangle(startX, startY, texture.Width - startX, frameHeight);
             Vector2 origin = sourceRectangle.Size() / 2f;
-            float offsetX = 20f;
-            origin.X = (float)(Projectile.spriteDirection == 1 ? sourceRectangle.Width - offsetX : offsetX);
             Color drawColor = Projectile.GetAlpha(lightColor);
             Main.EntitySpriteDraw(texture,
                 Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY),
