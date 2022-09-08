@@ -19,7 +19,7 @@ using Terraria.DataStructures;
 
 namespace MaverickHunterClass.Content.Projectiles.Weapons
 {
-    internal class FourthChargeB : ModProjectile
+    internal class BladeCharge : ModProjectile
     {
 
         private enum AIState
@@ -155,7 +155,7 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
                             if (Main.myPlayer == Projectile.owner)
                             {
                                 Vector2 newCenter = new Vector2(Projectile.Center.X + 61, Projectile.Center.Y);
-                                Projectile.NewProjectile(Projectile.InheritSource(Projectile), newCenter, Projectile.velocity * 1.1f, ModContent.ProjectileType<FourthBuster2>(), Projectile.damage + 30, Projectile.knockBack, Main.myPlayer);
+                                Projectile.NewProjectile(Projectile.InheritSource(Projectile), newCenter, Projectile.velocity * 1.1f, ModContent.ProjectileType<BladeBusterShot1>(), Projectile.damage + 30, Projectile.knockBack, Main.myPlayer);
                                 busterPlayer.isCharging = false;
                                 Projectile.Kill();
                             }

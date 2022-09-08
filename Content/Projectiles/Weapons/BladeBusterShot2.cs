@@ -9,24 +9,20 @@ using MaverickHunterClass.Common.Players;
 
 namespace MaverickHunterClass.Content.Projectiles.Weapons
 {
-    internal class FourthBuster2 : ModProjectile
+    internal class BladeBusterShot2 : ModProjectile
     {
-        private int framesTillPlasma = -1;
-        private int plasmaFieldsAllowed = 1;
+
 
         public override void SetStaticDefaults()
         {
             // Total count animation frames
-            Main.projFrames[Projectile.type] = 4;
+            Main.projFrames[Projectile.type] = 6;
         }
-
-        
-        
 
         public override void SetDefaults()
         {
-            Projectile.width = 142;
-            Projectile.height = 116;
+            Projectile.width = 94;
+            Projectile.height = 96;
 
             Projectile.friendly = true;
             Projectile.penetrate = -1;
@@ -34,8 +30,9 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
             Projectile.DamageType = ModContent.GetInstance<MHunterDamage>();
             Projectile.ownerHitCheck = true;
             Projectile.extraUpdates = 1;
-            Projectile.timeLeft = 180;
+            Projectile.timeLeft = 300;
             Projectile.tileCollide = false;
+            Projectile.localNPCHitCooldown = 20;
 
 
             //Projectile.aiStyle = ProjectileID.Bullet;
@@ -55,38 +52,10 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
                 if (++Projectile.frame >= Main.projFrames[Projectile.type])
                     Projectile.frame = 0;
             }
-            if (framesTillPlasma >= 0)
-            {
-                Main.NewText(framesTillPlasma);
-                if (framesTillPlasma == 0)
-                {
-                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<FourthBuster3>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
-                }
-                framesTillPlasma--;
-            }
 
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-            if (plasmaFieldsAllowed > 0)
-            {
-                Main.NewText(framesTillPlasma);
-                framesTillPlasma = 8;
-                plasmaFieldsAllowed--;
-            }
-            
-        }
-
-        public override void Kill(int timeLeft)
-        {
-            Player player = Main.player[Projectile.owner];
-            BusterPlayer busterPlayer = player.GetModPlayer<BusterPlayer>();
-            busterPlayer.activeBusterShots--;
-        }
-
-        
-
+       
         public override bool PreDraw(ref Color lightColor)
         {
             // SpriteEffects helps to flip texture horizontally and vertically
@@ -112,6 +81,7 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
 
             // If image isn't centered or symmetrical you can specify origin of the sprite
             // (0,0) for the upper-left corner
+
 
             // If sprite is vertical
             // float offsetY = 20f;

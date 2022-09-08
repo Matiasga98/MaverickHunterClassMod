@@ -19,7 +19,7 @@ using Terraria.DataStructures;
 
 namespace MaverickHunterClass.Content.Projectiles.Weapons
 {
-    internal class FourthChargeB : ModProjectile
+    internal class ShadowCharge : ModProjectile
     {
 
         private enum AIState
@@ -133,7 +133,8 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
                             if (Main.myPlayer == Projectile.owner)
                             {
                                 Vector2 newCenter = new Vector2(Projectile.Center.X + 15, Projectile.Center.Y);
-                                Projectile.NewProjectile(Projectile.InheritSource(Projectile), newCenter, Projectile.velocity, ModContent.ProjectileType<BusterShot>(), Projectile.damage + 5, Projectile.knockBack, Main.myPlayer);
+                                Vector2 newVelocity = Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(15));
+                                Projectile.NewProjectile(Projectile.InheritSource(Projectile), newCenter, newVelocity*2, ModContent.ProjectileType<ShadowBusterShot1>(), Projectile.damage + 5, Projectile.knockBack, Main.myPlayer);
                                 busterPlayer.isCharging = false;
                                 Projectile.Kill();
                             }
@@ -144,7 +145,8 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
                             if (Main.myPlayer == Projectile.owner)
                             {
                                 Vector2 newCenter = new Vector2(Projectile.Center.X + 27, Projectile.Center.Y);
-                                Projectile.NewProjectile(Projectile.InheritSource(Projectile), newCenter, Projectile.velocity, ModContent.ProjectileType<BusterShot2>(), Projectile.damage + 10, Projectile.knockBack, Main.myPlayer);
+                                Vector2 newVelocity = Projectile.velocity.RotatedByRandom(MathHelper.ToRadians(15));
+                                Projectile.NewProjectile(Projectile.InheritSource(Projectile), newCenter, newVelocity, ModContent.ProjectileType<ShadowBusterShot1>(), Projectile.damage + 5, Projectile.knockBack, Main.myPlayer);
                                 busterPlayer.isCharging = false;
                                 Projectile.Kill();
                             }
@@ -155,7 +157,8 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
                             if (Main.myPlayer == Projectile.owner)
                             {
                                 Vector2 newCenter = new Vector2(Projectile.Center.X + 61, Projectile.Center.Y);
-                                Projectile.NewProjectile(Projectile.InheritSource(Projectile), newCenter, Projectile.velocity * 1.1f, ModContent.ProjectileType<FourthBuster2>(), Projectile.damage + 30, Projectile.knockBack, Main.myPlayer);
+                                Projectile.NewProjectile(Projectile.InheritSource(Projectile), newCenter, Vector2.Zero, 
+                                    ModContent.ProjectileType<ShadowBusterShot2>(), Projectile.damage + 30, Projectile.knockBack, Main.myPlayer);
                                 busterPlayer.isCharging = false;
                                 Projectile.Kill();
                             }

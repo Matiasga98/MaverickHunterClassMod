@@ -9,10 +9,9 @@ using MaverickHunterClass.Common.Players;
 
 namespace MaverickHunterClass.Content.Projectiles.Weapons
 {
-    internal class FourthBuster2 : ModProjectile
+    internal class BladeBusterShot1 : ModProjectile
     {
         private int framesTillPlasma = -1;
-        private int plasmaFieldsAllowed = 1;
 
         public override void SetStaticDefaults()
         {
@@ -20,13 +19,13 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
             Main.projFrames[Projectile.type] = 4;
         }
 
-        
+        private int plasmaFieldsAllowed = 1;
         
 
         public override void SetDefaults()
         {
-            Projectile.width = 142;
-            Projectile.height = 116;
+            Projectile.width = 122;
+            Projectile.height = 60;
 
             Projectile.friendly = true;
             Projectile.penetrate = -1;
@@ -42,6 +41,9 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
 
             Projectile.aiStyle = ProjAIStyleID.GemStaffBolt;
         }
+
+        
+
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
@@ -60,7 +62,7 @@ namespace MaverickHunterClass.Content.Projectiles.Weapons
                 Main.NewText(framesTillPlasma);
                 if (framesTillPlasma == 0)
                 {
-                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<FourthBuster3>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
+                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<BladeBusterShot2>(), Projectile.damage, Projectile.knockBack, Main.myPlayer);
                 }
                 framesTillPlasma--;
             }
